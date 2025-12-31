@@ -1,0 +1,112 @@
+
+Recorded 31dec at 18:21.
+Version is:
+ - first basic change to alerts-dump.
+
+./named_fmt_perf                                                                                                                                                                                 main 
+2025-12-31T18:20:36+02:00
+Running ./named_fmt_perf
+Run on (12 X 2300.19 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 0.79, 0.88, 0.93
+------------------------------------------------------
+Benchmark            Time             CPU   Iterations
+------------------------------------------------------
+alerts_orig    4603906 ns      4589291 ns          153
+alerts_nv1     5616929 ns      5597823 ns          122
+
+./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1
+2025-12-31T18:22:49+02:00
+Running ./named_fmt_perf
+Run on (12 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 1.02, 0.97, 0.96
+------------------------------------------------------
+Benchmark            Time             CPU   Iterations
+------------------------------------------------------
+alerts_nv1     5577495 ns      5558704 ns          125
+alerts_orig    4585653 ns      4570960 ns          153
+
+------------
+
+and when adding a version that calls dump_string("nnn", fmt::format(...)):
+
+we get the same results as the new Formatter::dump_named_fmt
+
+./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1                                                                                                      main 
+2025-12-31T18:26:07+02:00
+Running ./named_fmt_perf
+Run on (12 X 2300.69 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 1.14, 1.25, 1.08
+-------------------------------------------------------------------
+Benchmark                         Time             CPU   Iterations
+-------------------------------------------------------------------
+alerts_nv1                  6516492 ns      6495254 ns          127
+alerts_orig                 4608450 ns      4591503 ns          152
+alerts_nv1_butDumpString    5487679 ns      5463425 ns          127
+
+---------------
+
+
+======================================================================
+
+
+Second run, corresponding to first version of dump_nv2 (using fmt for all, including the s0)
+
+ ./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1 --benchmark_repetitions=2
+2025-12-31T19:13:13+02:00
+Running ./named_fmt_perf
+Run on (12 X 2301.2 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 0.53, 1.14, 1.07
+--------------------------------------------------------------------------
+Benchmark                                Time             CPU   Iterations
+--------------------------------------------------------------------------
+alerts_nv2                        10558281 ns     10521492 ns           66
+alerts_nv2                        10574785 ns     10539852 ns           66
+alerts_nv2_mean                   10566533 ns     10530672 ns            2
+alerts_nv2_median                 10566533 ns     10530672 ns            2
+alerts_nv2_stddev                    11670 ns        12983 ns            2
+alerts_nv2_cv                         0.11 %          0.12 %             2
+alerts_orig                        9056952 ns      9022243 ns           76
+alerts_orig                        9076225 ns      9044502 ns           76
+alerts_orig_mean                   9066589 ns      9033372 ns            2
+alerts_orig_median                 9066589 ns      9033372 ns            2
+alerts_orig_stddev                   13628 ns        15740 ns            2
+alerts_orig_cv                        0.15 %          0.17 %             2
+alerts_nv1                        10776246 ns     10738995 ns           65
+alerts_nv1                        10773989 ns     10735066 ns           65
+alerts_nv1_mean                   10775118 ns     10737030 ns            2
+alerts_nv1_median                 10775118 ns     10737030 ns            2
+alerts_nv1_stddev                     1596 ns         2778 ns            2
+alerts_nv1_cv                         0.01 %          0.03 %             2
+alerts_nv1_butDumpString          12952718 ns     12909309 ns           65
+alerts_nv1_butDumpString          10733647 ns     10694264 ns           65
+alerts_nv1_butDumpString_mean     11843183 ns     11801786 ns            2
+alerts_nv1_butDumpString_median   11843183 ns     11801786 ns            2
+alerts_nv1_butDumpString_stddev    1569120 ns      1566274 ns            2
+alerts_nv1_butDumpString_cv          13.25 %         13.27 %             2
+
+
+nv2 wasn't improving things.
+
+======================================================================
+
+
