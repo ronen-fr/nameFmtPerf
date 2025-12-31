@@ -1,4 +1,9 @@
 
+
+!!!!!!!!!!!!!!!!! RESULTS WHEN COMPILED WITH -O1 !!!!!!!!!!!!!!!!!!!!
+
+
+
 Recorded 31dec at 18:21.
 Version is:
  - first basic change to alerts-dump.
@@ -108,5 +113,159 @@ alerts_nv1_butDumpString_cv          13.25 %         13.27 %             2
 nv2 wasn't improving things.
 
 ======================================================================
+
+nv3: only one format statement (although this means translating the OSD number multiple times).
+
+./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1 --benchmark_repetitions=2                                                                              v2 
+2025-12-31T19:18:33+02:00
+Running ./named_fmt_perf
+Run on (12 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 1.15, 1.09, 1.05
+--------------------------------------------------------------------------
+Benchmark                                Time             CPU   Iterations
+--------------------------------------------------------------------------
+alerts_nv1_butDumpString          11057279 ns     11013166 ns           63
+alerts_nv1_butDumpString          11017091 ns     10980556 ns           63
+alerts_nv1_butDumpString_mean     11037185 ns     10996861 ns            2
+alerts_nv1_butDumpString_median   11037185 ns     10996861 ns            2
+alerts_nv1_butDumpString_stddev      28417 ns        23059 ns            2
+alerts_nv1_butDumpString_cv           0.26 %          0.21 %             2
+alerts_nv1                        11303199 ns     11264422 ns           63
+alerts_nv1                        10987680 ns     10946600 ns           63
+alerts_nv1_mean                   11145440 ns     11105511 ns            2
+alerts_nv1_median                 11145440 ns     11105511 ns            2
+alerts_nv1_stddev                   223106 ns       224735 ns            2
+alerts_nv1_cv                         2.00 %          2.02 %             2
+alerts_orig                        9290910 ns      9260305 ns           75
+alerts_orig                       11433793 ns     11387680 ns           75
+alerts_orig_mean                  10362352 ns     10323993 ns            2
+alerts_orig_median                10362352 ns     10323993 ns            2
+alerts_orig_stddev                 1515247 ns      1504282 ns            2
+alerts_orig_cv                       14.62 %         14.57 %             2
+alerts_nv3                        10973013 ns     10937394 ns           63
+alerts_nv3                        10965827 ns     10925980 ns           63
+alerts_nv3_mean                   10969420 ns     10931687 ns            2
+alerts_nv3_median                 10969420 ns     10931687 ns            2
+alerts_nv3_stddev                     5081 ns         8071 ns            2
+alerts_nv3_cv                         0.05 %          0.07 %             2
+alerts_nv2                        10948250 ns     10913967 ns           64
+alerts_nv2                        10955661 ns     10918417 ns           64
+alerts_nv2_mean                   10951955 ns     10916192 ns            2
+alerts_nv2_median                 10951955 ns     10916192 ns            2
+alerts_nv2_stddev                     5240 ns         3147 ns            2
+alerts_nv2_cv                         0.05 %          0.03 %             2
+
+and the dump_string version of nv3:
+
+./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1 --benchmark_repetitions=2                                                                              v2 
+2025-12-31T19:27:53+02:00
+Running ./named_fmt_perf
+Run on (12 X 2300.02 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 1.31, 0.91, 0.92
+--------------------------------------------------------------------------
+Benchmark                                Time             CPU   Iterations
+--------------------------------------------------------------------------
+alerts_nv3                        10757124 ns     10658330 ns           63
+alerts_nv3                        11959590 ns     11798838 ns           63
+alerts_nv3_mean                   11358357 ns     11228584 ns            2
+alerts_nv3_median                 11358357 ns     11228584 ns            2
+alerts_nv3_stddev                   850272 ns       806461 ns            2
+alerts_nv3_cv                         7.49 %          7.18 %             2
+alerts_nv1                        11409537 ns     11308386 ns           52
+alerts_nv1                        11172789 ns     11070971 ns           52
+alerts_nv1_mean                   11291163 ns     11189678 ns            2
+alerts_nv1_median                 11291163 ns     11189678 ns            2
+alerts_nv1_stddev                   167406 ns       167877 ns            2
+alerts_nv1_cv                         1.48 %          1.50 %             2
+alerts_nv3_butDumpString          10626941 ns     10557686 ns           49
+alerts_nv3_butDumpString          10984311 ns     10874895 ns           49
+alerts_nv3_butDumpString_mean     10805626 ns     10716291 ns            2
+alerts_nv3_butDumpString_median   10805626 ns     10716291 ns            2
+alerts_nv3_butDumpString_stddev     252699 ns       224301 ns            2
+alerts_nv3_butDumpString_cv           2.34 %          2.09 %             2
+alerts_nv1_butDumpString          10681079 ns     10645583 ns           66
+alerts_nv1_butDumpString          11467359 ns     11380050 ns           66
+alerts_nv1_butDumpString_mean     11074219 ns     11012817 ns            2
+alerts_nv1_butDumpString_median   11074219 ns     11012817 ns            2
+alerts_nv1_butDumpString_stddev     555984 ns       519346 ns            2
+alerts_nv1_butDumpString_cv           5.02 %          4.72 %             2
+alerts_orig                        9686140 ns      9575851 ns           76
+alerts_orig                        9104921 ns      9005136 ns           76
+alerts_orig_mean                   9395530 ns      9290494 ns            2
+alerts_orig_median                 9395530 ns      9290494 ns            2
+alerts_orig_stddev                  410984 ns       403557 ns            2
+alerts_orig_cv                        4.37 %          4.34 %             2
+alerts_nv2                        11511867 ns     11392239 ns           63
+alerts_nv2                        10731198 ns     10616495 ns           63
+alerts_nv2_mean                   11121532 ns     11004367 ns            2
+alerts_nv2_median                 11121532 ns     11004367 ns            2
+alerts_nv2_stddev                   552016 ns       548534 ns            2
+alerts_nv2_cv                         4.96 %          4.98 %             2
+
+
+======================================================================
+
+AFter fixing a missing blank:
+./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1 --benchmark_repetitions=2                                                                              v2 
+2025-12-31T19:31:51+02:00
+Running ./named_fmt_perf
+Run on (12 X 800 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 0.47, 0.76, 0.87
+--------------------------------------------------------------------------
+Benchmark                                Time             CPU   Iterations
+--------------------------------------------------------------------------
+alerts_nv1                        10643174 ns     10607845 ns           66
+alerts_nv1                        10620818 ns     10588694 ns           66
+alerts_nv1_mean                   10631996 ns     10598270 ns            2
+alerts_nv1_median                 10631996 ns     10598270 ns            2
+alerts_nv1_stddev                    15808 ns        13542 ns            2
+alerts_nv1_cv                         0.15 %          0.13 %             2
+alerts_nv1_butDumpString          10623487 ns     10587309 ns           65
+alerts_nv1_butDumpString          10627747 ns     10593022 ns           65
+alerts_nv1_butDumpString_mean     10625617 ns     10590165 ns            2
+alerts_nv1_butDumpString_median   10625617 ns     10590165 ns            2
+alerts_nv1_butDumpString_stddev       3012 ns         4040 ns            2
+alerts_nv1_butDumpString_cv           0.03 %          0.04 %             2
+alerts_orig                        8980578 ns      8950225 ns           77
+alerts_orig                        8966356 ns      8937494 ns           77
+alerts_orig_mean                   8973467 ns      8943860 ns            2
+alerts_orig_median                 8973467 ns      8943860 ns            2
+alerts_orig_stddev                   10057 ns         9002 ns            2
+alerts_orig_cv                        0.11 %          0.10 %             2
+alerts_nv2                        10611013 ns     10577122 ns           66
+alerts_nv2                        10544200 ns     10503757 ns           66
+alerts_nv2_mean                   10577607 ns     10540440 ns            2
+alerts_nv2_median                 10577607 ns     10540440 ns            2
+alerts_nv2_stddev                    47244 ns        51877 ns            2
+alerts_nv2_cv                         0.45 %          0.49 %             2
+alerts_nv3_butDumpString          10775543 ns     10735947 ns           65
+alerts_nv3_butDumpString          10679247 ns     10639157 ns           65
+alerts_nv3_butDumpString_mean     10727395 ns     10687552 ns            2
+alerts_nv3_butDumpString_median   10727395 ns     10687552 ns            2
+alerts_nv3_butDumpString_stddev      68092 ns        68441 ns            2
+alerts_nv3_butDumpString_cv           0.63 %          0.64 %             2
+alerts_nv3                        10796215 ns     10760142 ns           64
+alerts_nv3                        10744278 ns     10710068 ns           64
+alerts_nv3_mean                   10770246 ns     10735105 ns            2
+alerts_nv3_median                 10770246 ns     10735105 ns            2
+alerts_nv3_stddev                    36725 ns        35407 ns            2
+alerts_nv3_cv                         0.34 %          0.33 %             2
+
+
 
 
