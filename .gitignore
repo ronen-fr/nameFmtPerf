@@ -1,0 +1,11 @@
+_deps
+CMakeFiles
+cmake-build-debug
+cmake-build-release
+compile_commands.json
+Makefile
+nameFmtPerf
+nameFmtPerf.vcxproj
+nameFmtPerf.vcxproj.filters
+Testing
+CMakeCache.txt
