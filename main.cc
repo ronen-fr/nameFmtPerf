@@ -6,6 +6,7 @@
 #include <array>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 #include "./Formatter.h"
 #include "./JSONFormatter.h"
 #include "./stringify.h"
@@ -99,15 +100,10 @@ void dump_nv3(Formatter* f, const osd_alerts_t& alerts)
     //string s0 = fmt::format(" osd: {}", a.first);
     //s0 += stringify(a.first);
     //string s;
-    for (const auto& aa : a.second) {
-      f->dump_named_fmt("alert", " osd: {} {}:{}", a.first, aa.first, aa.second);
-      // s = s0;
-      // s += " ";
-      // s += aa.first;
-      // s += ":";
-      // s += aa.second;
-      // f->dump_string("alert", s);
-    }
+    std::for_each(a.second.begin(), a.second.end(),
+      [&](const auto& aa) {
+        f->dump_named_fmt("alert", " osd: {} {}:{}", a.first, aa.first, aa.second);
+      });
   }
 }
 

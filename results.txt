@@ -268,4 +268,50 @@ alerts_nv3_cv                         0.34 %          0.33 %             2
 
 
 
+=======================================================================
+
+using 'for_each':
+
+./named_fmt_perf  --benchmark_enable_random_interleaving=true --benchmark_min_warmup_time=1 --benchmark_repetitions=4 --benchmark_display_aggregates_only=true --benchmark_time_unit=ms
+2026-01-01T10:43:31+02:00
+Running ./named_fmt_perf
+Run on (12 X 2300.01 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x6)
+  L1 Instruction 32 KiB (x6)
+  L2 Unified 256 KiB (x6)
+  L3 Unified 12288 KiB (x1)
+Load Average: 0.59, 0.59, 0.46
+--------------------------------------------------------------------------
+Benchmark                                Time             CPU   Iterations
+--------------------------------------------------------------------------
+alerts_nv3_mean                       10.8 ms         10.8 ms            4
+alerts_nv3_median                     10.8 ms         10.8 ms            4
+alerts_nv3_stddev                    0.044 ms        0.042 ms            4
+alerts_nv3_cv                         0.40 %          0.39 %             4
+alerts_nv1_mean                       10.8 ms         10.7 ms            4
+alerts_nv1_median                     10.8 ms         10.8 ms            4
+alerts_nv1_stddev                    0.058 ms        0.057 ms            4
+alerts_nv1_cv                         0.54 %          0.53 %             4
+alerts_nv3_butDumpString_mean         10.9 ms         10.9 ms            4
+alerts_nv3_butDumpString_median       10.9 ms         10.9 ms            4
+alerts_nv3_butDumpString_stddev      0.031 ms        0.033 ms            4
+alerts_nv3_butDumpString_cv           0.29 %          0.31 %             4
+alerts_orig_mean                      9.66 ms         9.62 ms            4
+alerts_orig_median                    9.67 ms         9.63 ms            4
+alerts_orig_stddev                   0.079 ms        0.072 ms            4
+alerts_orig_cv                        0.82 %          0.75 %             4
+alerts_nv2_mean                       11.2 ms         11.1 ms            4
+alerts_nv2_median                     10.7 ms         10.7 ms            4
+alerts_nv2_stddev                    0.877 ms        0.864 ms            4
+alerts_nv2_cv                         7.86 %          7.78 %             4
+alerts_nv1_butDumpString_mean         10.5 ms         10.5 ms            4
+alerts_nv1_butDumpString_median       10.3 ms         10.2 ms            4
+alerts_nv1_butDumpString_stddev      0.553 ms        0.553 ms            4
+alerts_nv1_butDumpString_cv           5.25 %          5.27 %             4
+
+
+
+
+
 
